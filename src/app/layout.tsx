@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
   title: "Surat Pilihan & Juz 'Amma — Mushaf Digital",
@@ -16,6 +17,12 @@ export const metadata: Metadata = {
     "Al-Waqiah",
   ],
   authors: [{ name: "Surat Pilihan" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Surat Pilihan",
+  },
   openGraph: {
     title: "Surat Pilihan & Juz 'Amma — Mushaf Digital",
     description:
@@ -45,8 +52,12 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body className="min-h-dvh antialiased">{children}</body>
+      <body className="min-h-dvh antialiased">
+        {children}
+        <ServiceWorkerRegister />
+      </body>
     </html>
   );
 }
