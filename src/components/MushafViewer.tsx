@@ -2,14 +2,17 @@
 
 import { useRef, useCallback, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Zoom } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
+import 'swiper/css/zoom';
 
 import MushafPage from './MushafPage';
 import NavigationOverlay from './NavigationOverlay';
 import { useAppStore } from '@/store/useAppStore';
 import { usePrefetch } from '@/hooks/usePrefetch';
 import { useLastRead } from '@/hooks/useLastRead';
+import { useWakeLock } from '@/hooks/useWakeLock';
 import { getSurahById } from '@/lib/constants';
 import { useRouter } from 'next/navigation';
 
@@ -22,6 +25,8 @@ interface MushafViewerProps {
 
 export default function MushafViewer({ surahId, startPage, endPage, initialPage }: MushafViewerProps) {
   const router = useRouter();
+  useWakeLock(true); // Keep screen awake while this component is mounted
+  
   const swiperRef = useRef<SwiperType | null>(null);
   const { currentPage, setCurrentPage, toggleOverlay } = useAppStore();
   const { prefetchAdjacent } = usePrefetch();
@@ -86,6 +91,11 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
       onClick={handleTap}
     >
       <Swiper
+        modules={[Zoom]}
+        zoom={{
+          maxRatio: 3,
+          minRatio: 1,
+        }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
@@ -102,7 +112,9 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
         {/* RTL: pages rendered normally, Swiper handles RTL layout */}
         {pages.map((pageNum) => (
           <SwiperSlide key={pageNum} className="flex items-center justify-center">
-            <MushafPage pageNumber={pageNum} />
+            <div className="swiper-zoom-container">
+              <MushafPage pageNumber={pageNum} />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

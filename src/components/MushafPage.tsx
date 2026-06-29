@@ -57,7 +57,7 @@ export default function MushafPage({ pageNumber }: MushafPageProps) {
         src={imageUrl}
         alt={`Halaman mushaf ${pageNumber}`}
         className={`max-w-full max-h-full object-contain transition-all duration-300
-                    ${theme === 'dark' ? 'mushaf-dark-filter' : ''}
+                    ${theme === 'dark' ? 'mushaf-dark-filter' : theme === 'sepia' ? 'mushaf-sepia-filter' : ''}
                     ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {

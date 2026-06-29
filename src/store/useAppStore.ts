@@ -5,8 +5,8 @@ import { Bookmark, LastRead } from '@/lib/types';
 
 interface AppState {
   // Theme
-  theme: 'light' | 'dark';
-  setTheme: (theme: 'light' | 'dark') => void;
+  theme: 'light' | 'dark' | 'sepia';
+  setTheme: (theme: 'light' | 'dark' | 'sepia') => void;
   toggleTheme: () => void;
 
   // Current reading state
@@ -42,11 +42,14 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ theme });
     if (typeof window !== 'undefined') {
       localStorage.setItem(THEME_KEY, theme);
-      document.documentElement.classList.toggle('dark', theme === 'dark');
+      document.documentElement.classList.remove('light', 'dark', 'theme-sepia');
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+      if (theme === 'sepia') document.documentElement.classList.add('theme-sepia');
     }
   },
   toggleTheme: () => {
-    const newTheme = get().theme === 'light' ? 'dark' : 'light';
+    const current = get().theme;
+    const newTheme = current === 'light' ? 'sepia' : current === 'sepia' ? 'dark' : 'light';
     get().setTheme(newTheme);
   },
 
@@ -115,10 +118,12 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
 
       // Load theme preference
-      const savedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | null;
+      const savedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | 'sepia' | null;
       if (savedTheme) {
         set({ theme: savedTheme });
-        document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+        document.documentElement.classList.remove('light', 'dark', 'theme-sepia');
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        if (savedTheme === 'sepia') document.documentElement.classList.add('theme-sepia');
       } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         set({ theme: 'dark' });
         document.documentElement.classList.add('dark');
