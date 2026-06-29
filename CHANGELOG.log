@@ -8,3 +8,9 @@ FITUR BARU:
 PERBAIKAN & PENYESUAIAN (REFACTOR):
 - [UI] Menyesuaikan ikon tombol "Ubah Tema" di halaman utama agar memuat ikon mode Sepia (buku/kertas) selain ikon bulan dan matahari.
 - [Konsep] Mengembalikan dan memastikan struktur daftar surat berfokus kuat hanya pada "Surat Pilihan & Juz Amma", menghilangkan kompleksitas list penuh 114 surat agar aplikasi tetap ringan dan sesuai objektif awal.
+
+[2026-06-26] Versi 1.0.1 - Dukungan PWA (Progressive Web App)
+
+FITUR BARU:
+- [Fitur] Progressive Web App (PWA): Menambahkan dukungan PWA melalui package `@ducanh2912/next-pwa`. Aplikasi kini dapat di-install secara native ke home screen perangkat (Android/iOS) dan mendukung offline-mode dasar.
+- [Aset] Menambahkan konfigurasi `manifest.json` dan ikon set PWA (icon-192x192.png, icon-512x512.png) di dalam folder `/public`.
