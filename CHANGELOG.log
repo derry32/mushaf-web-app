@@ -1,0 +1,10 @@
+[2026-06-29] Versi 1.1.0 - Peningkatan Kenyamanan Membaca
+
+FITUR BARU:
+- [Fitur] Pinch-to-Zoom: Menambahkan kemampuan mencubit layar (pinch) untuk memperbesar tampilan halaman mushaf. Diimplementasikan menggunakan modul Zoom dari Swiper.js (maksimal zoom 3x).
+- [Fitur] Layar Tetap Menyala (Wake Lock): Mengintegrasikan Screen Wake Lock API agar layar perangkat tidak otomatis meredup/mati saat pengguna sedang berada di halaman membaca (MushafViewer).
+- [Fitur] Mode Warna Sepia: Menambahkan tema warna ketiga (Sepia) selain Light dan Dark. Mode ini mengubah warna latar menjadi krem kertas tua dan mengaplikasikan filter CSS khusus pada SVG agar lebih nyaman dan ramah untuk mata di ruangan terang maupun redup.
+
+PERBAIKAN & PENYESUAIAN (REFACTOR):
+- [UI] Menyesuaikan ikon tombol "Ubah Tema" di halaman utama agar memuat ikon mode Sepia (buku/kertas) selain ikon bulan dan matahari.
+- [Konsep] Mengembalikan dan memastikan struktur daftar surat berfokus kuat hanya pada "Surat Pilihan & Juz Amma", menghilangkan kompleksitas list penuh 114 surat agar aplikasi tetap ringan dan sesuai objektif awal.
