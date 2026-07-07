@@ -11,8 +11,8 @@ interface NavigationOverlayProps {
   surahId: number;
   currentPage: number;
   startPage: number;
-  endPage: number;
   onPageSelect: (page: number) => void;
+  onBackClick: () => void;
   isTwoPageView?: boolean;
 }
 
@@ -22,6 +22,7 @@ export default function NavigationOverlay({
   startPage,
   endPage,
   onPageSelect,
+  onBackClick,
   isTwoPageView = false,
 }: NavigationOverlayProps) {
   const showOverlay = useAppStore((s) => s.showOverlay);
@@ -59,8 +60,8 @@ export default function NavigationOverlay({
       >
         <div className="flex items-center justify-between px-4 py-3 safe-top">
           {/* Back button */}
-          <Link
-            href="/"
+          <button
+            onClick={onBackClick}
             id="nav-back-home"
             className="flex h-10 w-10 items-center justify-center rounded-xl
                        bg-card border border-card-border text-foreground
@@ -69,7 +70,7 @@ export default function NavigationOverlay({
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-          </Link>
+          </button>
 
           {/* Surah title */}
           <div className="text-center flex-1 mx-4">

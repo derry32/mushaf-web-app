@@ -14,7 +14,7 @@ export default function LastReadBanner() {
 
   return (
     <Link
-      href={`/read/${lastRead.surahId}?page=${lastRead.pageNumber}`}
+      href={lastRead.isFinished ? `/read/${lastRead.surahId}` : `/read/${lastRead.surahId}?page=${lastRead.pageNumber}`}
       id="last-read-banner"
       className="group relative block overflow-hidden rounded-2xl border border-accent/30
                  bg-gradient-to-r from-accent/10 via-accent/5 to-transparent
@@ -31,9 +31,12 @@ export default function LastReadBanner() {
 
         {/* Text */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-muted mb-0.5">Lanjutkan membaca</p>
+          <p className="text-sm text-muted mb-0.5">
+            {lastRead.isFinished ? 'Selesai dibaca hari ini' : 'Lanjutkan membaca'}
+          </p>
           <p className="text-base font-semibold text-foreground truncate">
-            {surah?.name_latin || lastRead.surahName} — Halaman {lastRead.pageNumber}
+            {surah?.name_latin || lastRead.surahName} 
+            {!lastRead.isFinished && ` — Halaman ${lastRead.pageNumber}`}
           </p>
           <p className="text-xs text-muted mt-0.5">{timeAgo}</p>
         </div>

@@ -116,7 +116,16 @@ export const useAppStore = create<AppState>((set, get) => ({
       const stored = localStorage.getItem(LAST_READ_KEY);
       if (stored) {
         try {
-          set({ lastRead: JSON.parse(stored) });
+          const parsed = JSON.parse(stored) as LastRead;
+          const today = new Date().toISOString().split('T')[0];
+          
+          if (parsed.date && parsed.date !== today) {
+            // Jika beda hari, hapus history
+            set({ lastRead: null });
+            localStorage.removeItem(LAST_READ_KEY);
+          } else {
+            set({ lastRead: parsed });
+          }
         } catch {
           set({ lastRead: null });
         }

@@ -9,6 +9,7 @@ import 'swiper/css/zoom';
 
 import MushafPage from './MushafPage';
 import NavigationOverlay from './NavigationOverlay';
+import CompletionModal from './CompletionModal';
 import { useAppStore } from '@/store/useAppStore';
 import { usePrefetch } from '@/hooks/usePrefetch';
 import { useLastRead } from '@/hooks/useLastRead';
@@ -29,9 +30,10 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
   
   const swiperRef = useRef<SwiperType | null>(null);
   const [isTwoPageView, setIsTwoPageView] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
   const { currentPage, setCurrentPage, toggleOverlay } = useAppStore();
   const { prefetchAdjacent } = usePrefetch();
-  const { saveLastRead } = useLastRead();
+  const { lastRead, saveLastRead, markAsFinished } = useLastRead();
 
   const totalPages = endPage - startPage + 1;
   const pages = Array.from({ length: totalPages }, (_, i) => startPage + i);
@@ -71,15 +73,35 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
   }, [startPage]);
 
   // Handle tap to toggle overlay
-  const handleTap = useCallback(() => {
-    toggleOverlay();
-  }, [toggleOverlay]);
+  const handleTap = useCallback((e: React.MouseEvent) => {
+    // Only toggle if we are not clicking the modal
+    if (!showCompletionModal) {
+      toggleOverlay();
+    }
+  }, [toggleOverlay, showCompletionModal]);
+
+  const handleFinishReading = useCallback(() => {
+    markAsFinished();
+    router.push('/');
+  }, [markAsFinished, router]);
+
+  const handleBackRequest = useCallback(() => {
+    // Determine if we are currently at the last slide
+    const isAtEnd = swiperRef.current?.isEnd || false;
+    
+    // Trigger B: Show modal only when clicking back FROM the last page
+    if (isAtEnd && !lastRead?.isFinished) {
+      setShowCompletionModal(true);
+    } else {
+      router.push('/');
+    }
+  }, [router, lastRead?.isFinished]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        router.push('/');
+        handleBackRequest();
         return;
       }
       if (!swiperRef.current) return;
@@ -153,7 +175,15 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
         startPage={startPage}
         endPage={endPage}
         onPageSelect={handlePageSelect}
+        onBackClick={handleBackRequest}
         isTwoPageView={isTwoPageView}
+      />
+
+      {/* Completion Modal */}
+      <CompletionModal 
+        isOpen={showCompletionModal}
+        onClose={() => setShowCompletionModal(false)}
+        onFinish={handleFinishReading}
       />
     </div>
   );

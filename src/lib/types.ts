@@ -27,4 +27,6 @@ export interface LastRead {
   pageNumber: number;
   timestamp: number;
   surahName: string;
+  isFinished?: boolean;
+  date?: string; // Format YYYY-MM-DD
 }

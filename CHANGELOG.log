@@ -1,3 +1,10 @@
+[2026-07-07] Versi 1.3.0 - Fase C (Konfirmasi Khatam & Reset Harian)
+
+FITUR BARU:
+- [Fitur] Popup Khatam (Selesai Membaca): Secara otomatis menampilkan popup konfirmasi ketika pengguna mencapai halaman terakhir dari sebuah surat. Popup ini mencegah surat yang sudah khatam ditandai secara keliru sebagai "Lanjutkan membaca".
+- [Fitur] Daily Reset History: Memori "Terakhir Dibaca" kini akan di-reset secara otomatis setiap pergantian hari.
+- [UI/UX] Indikator Selesai di Beranda: Jika pengguna mengonfirmasi telah selesai membaca sebuah surat, card "Terakhir Dibaca" di beranda akan berubah menjadi "Selesai dibaca hari ini: [Nama Surat]", memberi rasa pencapaian bagi pengguna.
+
 [2026-07-06] Versi 1.2.0 - Fase B (Peningkatan Pengalaman Membaca)
 
 FITUR BARU:
