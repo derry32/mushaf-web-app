@@ -87,7 +87,7 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
 
   const handleBackRequest = useCallback(() => {
     // Determine if we are currently at the last slide
-    const isAtEnd = swiperRef.current?.isEnd || false;
+    const isAtEnd = currentPage === endPage || (isTwoPageView && currentPage >= endPage - 1);
     
     // Trigger B: Show modal only when clicking back FROM the last page
     if (isAtEnd && !lastRead?.isFinished) {
@@ -95,7 +95,7 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
     } else {
       router.push('/');
     }
-  }, [router, lastRead?.isFinished]);
+  }, [currentPage, endPage, isTwoPageView, router, lastRead?.isFinished]);
 
   // Keyboard navigation
   useEffect(() => {
