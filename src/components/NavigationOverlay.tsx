@@ -11,6 +11,7 @@ interface NavigationOverlayProps {
   surahId: number;
   currentPage: number;
   startPage: number;
+  endPage: number;
   onPageSelect: (page: number) => void;
   onBackClick: () => void;
   isTwoPageView?: boolean;
