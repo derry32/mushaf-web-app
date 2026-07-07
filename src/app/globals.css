@@ -25,6 +25,7 @@
   --card-border: #E8E2D6;
   --muted: #7F8C8D;
   --overlay: rgba(251, 248, 241, 0.92);
+  --shadow-spine: rgba(0, 0, 0, 0.12);
 }
 
 /* ===== DARK MODE ===== */
@@ -37,6 +38,7 @@
   --card-border: #2D2D2D;
   --muted: #888888;
   --overlay: rgba(18, 18, 18, 0.92);
+  --shadow-spine: rgba(0, 0, 0, 0.5);
 }
 
 /* ===== SEPIA MODE ===== */
@@ -49,6 +51,7 @@
   --card-border: #E8D9BE;
   --muted: #7E6C57;
   --overlay: rgba(244, 236, 216, 0.92);
+  --shadow-spine: rgba(100, 60, 20, 0.15);
 }
 
 /* ===== BASE STYLES ===== */
@@ -165,4 +168,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ===== BOOK SPINE EFFECTS (Landscape 2-Page Mode) ===== */
+.book-spine-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  background: linear-gradient(to right, var(--shadow-spine) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.book-spine-left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  background: linear-gradient(to left, var(--shadow-spine) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Zoom } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -28,6 +28,7 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
   useWakeLock(true); // Keep screen awake while this component is mounted
   
   const swiperRef = useRef<SwiperType | null>(null);
+  const [isTwoPageView, setIsTwoPageView] = useState(false);
   const { currentPage, setCurrentPage, toggleOverlay } = useAppStore();
   const { prefetchAdjacent } = usePrefetch();
   const { saveLastRead } = useLastRead();
@@ -61,6 +62,13 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
     setCurrentPage(page);
     prefetchAdjacent(page, startPage, endPage);
   }, [initialPage, startPage, endPage, setCurrentPage, prefetchAdjacent]);
+
+  const handlePageSelect = useCallback((page: number) => {
+    if (swiperRef.current) {
+      const index = page - startPage;
+      swiperRef.current.slideTo(index);
+    }
+  }, [startPage]);
 
   // Handle tap to toggle overlay
   const handleTap = useCallback(() => {
@@ -100,9 +108,24 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
           swiperRef.current = swiper;
         }}
         onSlideChange={handleSlideChange}
+        onReachBeginning={() => {
+          if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(20);
+        }}
+        onReachEnd={() => {
+          if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(20);
+        }}
         initialSlide={initialSlideIndex}
         dir="rtl"
         slidesPerView={1}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+          }
+        }}
+        onBreakpoint={(swiper, breakpointParams) => {
+          setIsTwoPageView(breakpointParams.slidesPerView === 2);
+        }}
         spaceBetween={0}
         speed={300}
         cssMode={false}
@@ -110,9 +133,13 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
         className="w-full h-full"
       >
         {/* RTL: pages rendered normally, Swiper handles RTL layout */}
-        {pages.map((pageNum) => (
+        {pages.map((pageNum, index) => (
           <SwiperSlide key={pageNum} className="flex items-center justify-center">
-            <div className="swiper-zoom-container">
+            <div className={`swiper-zoom-container relative ${
+              isTwoPageView 
+                ? (index % 2 === 0 ? 'book-spine-right' : 'book-spine-left') 
+                : ''
+            }`}>
               <MushafPage pageNumber={pageNum} />
             </div>
           </SwiperSlide>
@@ -125,6 +152,8 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
         currentPage={currentPage}
         startPage={startPage}
         endPage={endPage}
+        onPageSelect={handlePageSelect}
+        isTwoPageView={isTwoPageView}
       />
     </div>
   );

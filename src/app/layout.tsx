@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import Toast from "@/components/Toast";
 
 export const metadata: Metadata = {
   title: "Surat Pilihan & Juz 'Amma — Mushaf Digital",
@@ -56,6 +57,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-dvh antialiased">
         {children}
+        <Toast />
         <ServiceWorkerRegister />
       </body>
     </html>

@@ -29,6 +29,11 @@ interface AppState {
   lastRead: LastRead | null;
   setLastRead: (lastRead: LastRead) => void;
   loadLastRead: () => void;
+
+  // Toast Notification
+  toast: { message: string; isVisible: boolean };
+  showToast: (message: string) => void;
+  hideToast: () => void;
 }
 
 const BOOKMARKS_KEY = 'mushaf-bookmarks';
@@ -130,4 +135,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     }
   },
+
+  // Toast
+  toast: { message: '', isVisible: false },
+  showToast: (message) => set({ toast: { message, isVisible: true } }),
+  hideToast: () => set((state) => ({ toast: { ...state.toast, isVisible: false } })),
 }));

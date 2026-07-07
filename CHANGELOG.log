@@ -1,3 +1,18 @@
+[2026-07-06] Versi 1.2.0 - Fase B (Peningkatan Pengalaman Membaca)
+
+FITUR BARU:
+- [Fitur] Mode Landscape (Buku Terbuka): Mushaf sekarang secara otomatis menampilkan 2 halaman berdampingan (seperti buku fisik sesungguhnya) saat dibuka di layar lebar (tablet/desktop, >= 768px). Menggunakan Swiper breakpoints.
+- [UI/UX] Kosmetik Spine Shadow: Menambahkan efek bayangan (shadow) halus di lipatan tengah antar dua halaman untuk memberikan ilusi buku tiga dimensi (3D) tanpa mengorbankan performa.
+- [Fitur] Dynamic Slider: Slider navigasi dan teks indikator halaman sekarang otomatis beradaptasi saat dalam mode 2 halaman (menampilkan rentang halaman "Hal X - Y" dan melompat 2 halaman sekaligus).
+
+[2026-07-06] Versi 1.1.1 - Fitur Quick Wins (Fase A)
+
+FITUR BARU:
+- [Fitur] Halaman Daftar Bookmark: Menambahkan rute baru `/bookmarks` untuk melihat dan mengelola semua halaman yang pernah ditandai, diurutkan dari yang terbaru.
+- [Fitur] Page Slider (Jump-to-Page): Mengubah indikator progress statis di Navigation Overlay menjadi slider interaktif (`input range`) agar pengguna bisa melompat ke halaman spesifik secara instan. Terintegrasi mulus dengan Swiper.js.
+- [UI/UX] Toast Notifications: Menambahkan komponen Toast global yang memberikan feedback visual ringan (popup "Halaman X ditandai") di bagian bawah layar saat memicu aksi bookmark.
+- [UI/UX] Haptic Feedback: Menambahkan micro-interaction getaran (menggunakan Vibration API) di perangkat mobile saat pengguna menekan tombol bookmark atau saat mencoba men-swipe melampaui batas halaman pertama/terakhir.
+
 [2026-06-29] Versi 1.1.0 - Peningkatan Kenyamanan Membaca
 
 FITUR BARU:
