@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { useAppStore } from '@/store/useAppStore';
 import { getSurahById } from '@/lib/constants';
+import EmptyState from './EmptyState';
 
 export default function LastReadBanner() {
   const lastRead = useAppStore((s) => s.lastRead);
 
-  if (!lastRead) return null;
+  if (!lastRead) return <EmptyState type="lastRead" />;
 
   const surah = getSurahById(lastRead.surahId);
   const timeAgo = getTimeAgo(lastRead.timestamp);

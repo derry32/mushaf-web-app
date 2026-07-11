@@ -31,7 +31,7 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
   const swiperRef = useRef<SwiperType | null>(null);
   const [isTwoPageView, setIsTwoPageView] = useState(false);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
-  const { currentPage, setCurrentPage, toggleOverlay } = useAppStore();
+  const { currentPage, setCurrentPage, toggleOverlay, showOverlay } = useAppStore();
   const { prefetchAdjacent } = usePrefetch();
   const { lastRead, saveLastRead, markAsFinished } = useLastRead();
 
@@ -122,7 +122,7 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
 
   return (
     <div
-      className="relative w-full h-dvh bg-background overflow-hidden"
+      className="relative w-full h-dvh overflow-hidden"
       onClick={handleTap}
     >
       <Swiper
@@ -172,6 +172,21 @@ export default function MushafViewer({ surahId, startPage, endPage, initialPage 
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Visual Hint Toggle Button (Visible only when overlay is hidden) */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!showCompletionModal) toggleOverlay();
+        }}
+        className={`absolute bottom-6 right-6 z-40 p-3.5 rounded-full bg-card/50 backdrop-blur-md border border-card-border/50 text-foreground/70 shadow-lg transition-all duration-500
+                    ${showOverlay ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100 hover:bg-accent/20 hover:text-accent'}`}
+        aria-label="Tampilkan Menu Navigasi"
+      >
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
 
       {/* Navigation overlay */}
       <NavigationOverlay

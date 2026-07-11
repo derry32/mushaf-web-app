@@ -54,6 +54,19 @@
   --shadow-spine: rgba(100, 60, 20, 0.15);
 }
 
+/* ===== EMERALD MODE ===== */
+.theme-emerald {
+  --bg: #0D3B2E;
+  --fg: #FDF6E3;
+  --accent: #E5B25D;
+  --accent-light: #F4C476;
+  --card-bg: #124536;
+  --card-border: #1E5C4A;
+  --muted: #A3C2B5;
+  --overlay: rgba(13, 59, 46, 0.92);
+  --shadow-spine: rgba(0, 0, 0, 0.4);
+}
+
 /* ===== BASE STYLES ===== */
 * {
   -webkit-tap-highlight-color: transparent;
@@ -66,15 +79,30 @@ html {
 body {
   background-color: var(--bg);
   color: var(--fg);
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23000000' stroke-width='2' stroke-opacity='0.03'%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' /%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' transform='rotate(45 60 60)' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' stroke-opacity='0.02' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' transform='rotate(45 60 60)' stroke-opacity='0.02' /%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
   font-family: 'Inter', system-ui, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.dark body {
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-opacity='0.02'%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' /%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' transform='rotate(45 60 60)' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' stroke-opacity='0.015' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' transform='rotate(45 60 60)' stroke-opacity='0.015' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+html.theme-sepia body {
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23704214' stroke-width='2' stroke-opacity='0.05'%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' /%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' transform='rotate(45 60 60)' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' stroke-opacity='0.03' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' transform='rotate(45 60 60)' stroke-opacity='0.03' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+html.theme-emerald body {
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23E5B25D' stroke-width='2' stroke-opacity='0.15'%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' /%3E%3Cpath d='M60 0l10 50 50 10-50 10-10 50-10-50-50-10 50-10z' transform='rotate(45 60 60)' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' stroke-opacity='0.1' /%3E%3Cpath d='M60 30l5 25 25 5-25 5-5 25-5-25-25-5 25-5z' transform='rotate(45 60 60)' stroke-opacity='0.1' /%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
 /* ===== ARABIC FONT CLASS ===== */
 .font-arabic {
-  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-family: var(--font-amiri), 'Traditional Arabic', serif;
 }
 
 /* ===== MUSHAF DARK MODE SVG FILTER ===== */
@@ -83,6 +111,12 @@ body {
 }
 
 /* ===== MUSHAF SEPIA MODE SVG FILTER ===== */
+.theme-sepia .mushaf-dark-filter {
+  filter: sepia(0.8) brightness(0.9) hue-rotate(345deg);
+}
+
+
+
 .mushaf-sepia-filter {
   filter: sepia(0.6) hue-rotate(-10deg) saturate(1.5) brightness(0.95);
 }

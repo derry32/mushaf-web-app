@@ -50,6 +50,16 @@ export const SURAT_PILIHAN: Surah[] = [
     total_verses: 83,
   },
   {
+    id: 55,
+    name_latin: 'Ar-Rahman',
+    name_arabic: 'الرحمن',
+    start_page: 531,
+    end_page: 534,
+    juz_number: 27,
+    revelation_type: 'Madaniyah',
+    total_verses: 78,
+  },
+  {
     id: 56,
     name_latin: "Al-Waqi'ah",
     name_arabic: 'الواقعة',

@@ -60,12 +60,14 @@ export default function CompletionModal({ isOpen, onClose, onFinish }: Completio
             <button
               onClick={onClose}
               className="flex-1 py-3 px-4 rounded-xl border border-card-border text-foreground font-medium transition-colors hover:bg-accent/5 active:scale-95"
+              aria-label="Belum Selesai"
             >
               Belum
             </button>
             <button
               onClick={onFinish}
               className="flex-1 py-3 px-4 rounded-xl bg-accent text-white font-medium shadow-md shadow-accent/20 transition-transform hover:bg-accent-light active:scale-95"
+              aria-label="Sudah Selesai"
             >
               Sudah Selesai
             </button>

@@ -5,8 +5,8 @@ import { Bookmark, LastRead } from '@/lib/types';
 
 interface AppState {
   // Theme
-  theme: 'light' | 'dark' | 'sepia';
-  setTheme: (theme: 'light' | 'dark' | 'sepia') => void;
+  theme: 'light' | 'dark' | 'sepia' | 'emerald';
+  setTheme: (theme: 'light' | 'dark' | 'sepia' | 'emerald') => void;
   toggleTheme: () => void;
 
   // Current reading state
@@ -47,14 +47,18 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ theme });
     if (typeof window !== 'undefined') {
       localStorage.setItem(THEME_KEY, theme);
-      document.documentElement.classList.remove('light', 'dark', 'theme-sepia');
+      document.documentElement.classList.remove('light', 'dark', 'theme-sepia', 'theme-emerald');
       if (theme === 'dark') document.documentElement.classList.add('dark');
       if (theme === 'sepia') document.documentElement.classList.add('theme-sepia');
+      if (theme === 'emerald') document.documentElement.classList.add('theme-emerald');
     }
   },
   toggleTheme: () => {
     const current = get().theme;
-    const newTheme = current === 'light' ? 'sepia' : current === 'sepia' ? 'dark' : 'light';
+    const newTheme = current === 'light' ? 'sepia' 
+                   : current === 'sepia' ? 'dark' 
+                   : current === 'dark' ? 'emerald' 
+                   : 'light';
     get().setTheme(newTheme);
   },
 
@@ -132,12 +136,13 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
 
       // Load theme preference
-      const savedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | 'sepia' | null;
+      const savedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | 'sepia' | 'emerald' | null;
       if (savedTheme) {
         set({ theme: savedTheme });
-        document.documentElement.classList.remove('light', 'dark', 'theme-sepia');
+        document.documentElement.classList.remove('light', 'dark', 'theme-sepia', 'theme-emerald');
         if (savedTheme === 'dark') document.documentElement.classList.add('dark');
         if (savedTheme === 'sepia') document.documentElement.classList.add('theme-sepia');
+        if (savedTheme === 'emerald') document.documentElement.classList.add('theme-emerald');
       } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         set({ theme: 'dark' });
         document.documentElement.classList.add('dark');

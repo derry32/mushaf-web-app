@@ -18,7 +18,7 @@ export default function HomePage() {
   }, [loadLastRead, loadBookmarks]);
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="min-h-dvh">
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-40 bg-overlay backdrop-blur-md border-b border-card-border/50">
         <div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-between safe-top">

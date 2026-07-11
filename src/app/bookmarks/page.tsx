@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { getSurahById } from '@/lib/constants';
+import EmptyState from '@/components/EmptyState';
 
 export default function BookmarksPage() {
   const { bookmarks, toggleBookmark, loadBookmarks } = useBookmarks();
@@ -18,7 +19,7 @@ export default function BookmarksPage() {
   const sortedBookmarks = [...bookmarks].sort((a, b) => b.timestamp - a.timestamp);
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="min-h-dvh">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-overlay backdrop-blur-md border-b border-card-border/50">
         <div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-between safe-top">
@@ -43,17 +44,7 @@ export default function BookmarksPage() {
             <div className="w-8 h-8 border-3 border-accent/30 border-t-accent rounded-full animate-spin" />
           </div>
         ) : sortedBookmarks.length === 0 ? (
-          <div className="text-center py-16 px-4">
-            <div className="w-16 h-16 bg-accent/10 text-accent rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-              </svg>
-            </div>
-            <h2 className="text-lg font-semibold text-foreground mb-2">Belum ada penanda</h2>
-            <p className="text-sm text-muted">
-              Halaman yang Anda tandai saat membaca akan muncul di sini.
-            </p>
-          </div>
+          <EmptyState type="bookmark" />
         ) : (
           <div className="grid gap-3">
             {sortedBookmarks.map((bookmark) => {

@@ -1,7 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import { Amiri } from "next/font/google";
 import "./globals.css";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import Toast from "@/components/Toast";
+
+const amiri = Amiri({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  variable: "--font-amiri",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Surat Pilihan & Juz 'Amma — Mushaf Digital",
@@ -55,7 +63,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body className="min-h-dvh antialiased">
+      <body className={`min-h-dvh antialiased ${amiri.variable}`}>
         {children}
         <Toast />
         <ServiceWorkerRegister />

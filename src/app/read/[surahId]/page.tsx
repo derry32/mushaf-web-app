@@ -49,9 +49,9 @@ export default function ReadPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex h-dvh w-full items-center justify-center bg-background">
+        <div className="flex h-dvh w-full items-center justify-center">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-3 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
             <span className="text-sm text-muted">Memuat mushaf...</span>
           </div>
         </div>

@@ -1,9 +1,18 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useAppStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Saat SSR / sebelum mount, render seolah-olah light mode untuk mencegah hydration mismatch
+  const currentTheme = mounted ? theme : 'light';
 
   return (
     <button
@@ -13,12 +22,12 @@ export default function ThemeToggle() {
                  bg-card border border-card-border text-foreground
                  transition-all duration-300 hover:bg-accent/10 hover:text-accent
       active:scale-90"
-      aria-label={`Ganti tema (Saat ini: ${theme})`}
+      aria-label={`Ganti tema (Saat ini: ${currentTheme})`}
     >
-      {/* Sun icon */}
+      {/* Sun icon (Light) */}
       <svg
         className={`absolute w-5 h-5 transition-all duration-500
-                    ${theme === 'light' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
+                    ${currentTheme === 'light' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -31,10 +40,26 @@ export default function ThemeToggle() {
         />
       </svg>
 
+      {/* Book icon (Sepia) */}
+      <svg
+        className={`absolute w-5 h-5 transition-all duration-500
+                    ${currentTheme === 'sepia' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+        />
+      </svg>
+
       {/* Moon icon (Dark) */}
       <svg
         className={`absolute w-5 h-5 transition-all duration-500
-                    ${theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : theme === 'light' ? 'rotate-90 scale-0 opacity-0' : '-rotate-90 scale-0 opacity-0'}`}
+                    ${currentTheme === 'dark' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -47,10 +72,10 @@ export default function ThemeToggle() {
         />
       </svg>
 
-      {/* Book/Document icon (Sepia) */}
+      {/* Star/Sparkles icon (Emerald) */}
       <svg
         className={`absolute w-5 h-5 transition-all duration-500
-                    ${theme === 'sepia' ? 'rotate-0 scale-100 opacity-100' : theme === 'dark' ? 'rotate-90 scale-0 opacity-0' : '-rotate-90 scale-0 opacity-0'}`}
+                    ${currentTheme === 'emerald' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -59,7 +84,7 @@ export default function ThemeToggle() {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+          d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.81.42l.74 5.345c.08.577-.506 1.003-.997.74l-4.78-2.532a.562.562 0 00-.53 0l-4.78 2.532c-.49.263-1.077-.163-.997-.74l.74-5.345a.563.563 0 00-.181-.42l-4.204-3.602c-.38-.325-.178-.948.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
         />
       </svg>
     </button>
