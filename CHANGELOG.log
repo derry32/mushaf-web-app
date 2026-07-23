@@ -1,3 +1,6 @@
+[2026-07-23] Versi 1.3.2 - Peningkatan Performa & Keandalan
+- [Arsitektur] Migrasi sumber gambar SVG: Alih-alih memanggil gambar secara dinamis dari Github Raw (atau Supabase), kini seluruh 51 halaman SVG Surat Pilihan & Juz Amma telah diunduh dan disimpan secara lokal di `/public/svg`. Hal ini menghilangkan risiko limit API, kegagalan muat gambar, dan membuat aplikasi memuat halaman dengan kecepatan instan.
+
 [2026-07-11] Versi 1.3.1 - Penambahan Konten
 - [Konten] Menambahkan Surat Ar-Rahman (Surat ke-55) ke dalam daftar Surat Pilihan.
 
