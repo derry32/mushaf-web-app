@@ -151,8 +151,8 @@ export function getPageRange(surahId: number | string): { start: number; end: nu
   return { start: surah.start_page, end: surah.end_page };
 }
 
-// ===== SUPABASE STORAGE URL BUILDER =====
-export function buildPageUrl(pageNumber: number, baseUrl?: string): string {
-  const supabaseUrl = baseUrl || process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  return `${supabaseUrl}/storage/v1/object/public/mushaf-pages/svg/page-${pageNumber}.svg`;
+// ===== SVG URL BUILDER =====
+export function buildPageUrl(pageNumber: number): string {
+  const pageString = pageNumber.toString().padStart(3, '0');
+  return `https://raw.githubusercontent.com/batoulapps/quran-svg/main/svg/${pageString}.svg`;
 }
