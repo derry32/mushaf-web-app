@@ -154,5 +154,5 @@ export function getPageRange(surahId: number | string): { start: number; end: nu
 // ===== SVG URL BUILDER =====
 export function buildPageUrl(pageNumber: number): string {
   const pageString = pageNumber.toString().padStart(3, '0');
-  return `https://raw.githubusercontent.com/batoulapps/quran-svg/main/svg/${pageString}.svg`;
+  return `/svg/page-${pageString}.svg`;
 }
